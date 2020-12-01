@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Đăng nhập</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="img/png" href="https://www.kindpng.com/picc/m/79-790695_landscape-icon-transparent-background-trees-icon-hd-png.png">
+	<link rel="stylesheet" type="text/css" href="./Views/index.css" />
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>	
+	<link href="/open-iconic/font/css/open-iconic.css" rel="stylesheet">
+</head>
+<body>
+
+	
+	<div class="wrapper">
+		<div class="login-container">
+			<div class="login-wrapper p-l-55 p-r-55 p-t-55 p-b-54">
+				<form class="login-form"  method="POST">
+					<span class="login-form-title p-b-49">Đăng nhập</span>
+					<div class="form-input validate-input m-b-23" data-validate="Xin mời nhập tài khoản">
+						<span class="login-label">Tài khoản</span>
+						<i class="fa fa-user"></i></span>
+						<input class="login-input" type="text" name="username" placeholder="Nhập tài khoản của bạn" id="username" required></input>
+
+						<span class="focus-input">
+					</div>
+					<div class="form-input validate-input m-b-23" data-validate="Xin mời nhập mật khẩu">
+						<span class="login-label">Mật khẩu</span>
+						<i class="fa fa-lock"></i></span>
+						<input class="login-input" type="password" name="password" placeholder="Nhập mật khẩu của bạn" id="password" required></span>
+						<span class="focus-input"></span>
+					</div>
+					<div class="forget-password p-t-8 p-b-31">
+						<a href="">Quên mật khẩu?</a>
+
+					</div>
+					<div class="login-form-btn-container">
+						<div class="login-form-btn-wrapper">
+							<div class="login-form-btn"></div>
+							<button class="login-button" id="loginbtn">Đăng nhập</button>
+						</div>
+					</div>
+					<div class="register-text text-center p-t-54 p-b-20">
+						
+					</div>
+					<div class="flex-col-c p-t-155">
+						<span class ="signup-label p-b-17">
+							Chưa có tài khoản?
+						</span>
+						<a href="" action="resetpassword" class="signup-link">
+							Đăng ký ngay tại đây!
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<script>
+	$(document).ready(function(){
+		$('#loginbtn').on('click', function() {
+			var username = $('#username').val();
+			var password = $('#password').val();
+			if(email!="" && password !=""){
+				$.ajax({
+					url: "saveData.php",
+					type: "POST",
+					data :{
+						type :2,
+						username: username,
+						password: password
+					},
+					cache: false,
+					success: function(dataResult){
+						var dataResult = JSON.parse(dataResult);
+						if(dataResult.statusCode == 200){
+							location.href = "home";
+						}
+						else if(dataResult.statusCode == 201){
+							$("#error").show();
+							$('#error').html('Invalid Username or password!');
+						}
+					}
+				})
+			}
+		})
+	})
+</script>
+</body>
+</html>
